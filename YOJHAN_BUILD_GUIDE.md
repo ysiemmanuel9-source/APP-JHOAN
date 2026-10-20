@@ -56,7 +56,7 @@ Los patches internos se guardan en Application Support, no en Documents. La UI n
 La app ya esta configurada con:
 
 ```text
-Project URL: https://ltqpttyxpyyapzfftwbh.supabase.co
+Project URL: https://ltqpttxypyyapzfftwhb.supabase.co
 Publishable key: PON_AQUI_LA_PUBLISHABLE_KEY_DE_YOJHAN
 Funciones cliente:
 - public.activate_license(p_license_key text, p_device_id text)

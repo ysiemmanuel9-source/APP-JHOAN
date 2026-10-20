@@ -1,6 +1,6 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-const SUPABASE_URL = "https://ltqpttyxpyyapzfftwbh.supabase.co";
+const SUPABASE_URL = "https://ltqpttxypyyapzfftwhb.supabase.co";
 const SUPABASE_KEY = "sb_publishable_IglOzRWFPbYC21LkCtTY_w_RLEdsQxn";
 const BUCKET = "yojhan-content";
 const SCRIPT_VERSION = "20260923-target-help";

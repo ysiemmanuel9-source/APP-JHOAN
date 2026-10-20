@@ -439,7 +439,7 @@ private struct YojhanLicenseView: View {
 }
 
 enum SupabaseLicenseConfig {
-    static let projectURL = URL(string: "https://ltqpttyxpyyapzfftwbh.supabase.co")!
+    static let projectURL = URL(string: "https://ltqpttxypyyapzfftwhb.supabase.co")!
     static let publishableKey = "sb_publishable_IglOzRWFPbYC21LkCtTY_w_RLEdsQxn"
 }
 
