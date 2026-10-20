@@ -187,6 +187,12 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
+    storageKey: "yojhan-admin-auth",
+  },
+  global: {
+    headers: {
+      "x-client-info": "yojhan-cheats-admin",
+    },
   },
 });
 
@@ -273,10 +279,11 @@ async function init() {
 
   bindEvents();
   try {
+    await verifySupabaseConnection();
     const { data } = await withTimeout(
       supabaseClient.auth.getSession(),
       12000,
-      "No pude revisar la sesion. Abre el panel con internet activo o desde http://localhost."
+      "Supabase tardo demasiado en responder. Revisa la URL del proyecto y la conexion a internet."
     );
     setSession(data.session);
   } catch (error) {
@@ -287,6 +294,32 @@ async function init() {
   supabaseClient.auth.onAuthStateChange((_event, session) => {
     setSession(session);
   });
+}
+
+async function verifySupabaseConnection() {
+  if (window.location.protocol === "file:") {
+    throw new Error("Este panel necesita abrirse desde http://localhost o http://127.0.0.1; no desde file://.");
+  }
+
+  const response = await withTimeout(
+    fetch(`${SUPABASE_URL}/auth/v1/settings`, {
+      method: "GET",
+      headers: { apikey: SUPABASE_KEY },
+      cache: "no-store",
+    }),
+    12000,
+    `No responde el proyecto Supabase configurado: ${SUPABASE_URL}. Verifica Settings > API > Project URL.`
+  ).catch((error) => {
+    if (/failed to fetch|network|load failed|dns|encontrar|desconocido/i.test(error?.message || "")) {
+      throw new Error(`No se encuentra el proyecto Supabase configurado (${SUPABASE_URL}). Copia el Project URL exacto desde Supabase > Connect/API y actualízalo en el panel y en la IPA.`);
+    }
+    throw error;
+  });
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => "");
+    throw new Error(`Supabase respondió HTTP ${response.status}. Revisa que la URL y la publishable key pertenezcan al mismo proyecto.${details ? ` Detalle: ${details.slice(0, 180)}` : ""}`);
+  }
 }
 
 function bindEvents() {
@@ -1174,7 +1207,7 @@ function authErrorMessage(error) {
     return "Ese correo existe, pero falta confirmar el email en Supabase Auth.";
   }
   if (/failed to fetch|network/i.test(message)) {
-    return "No pude conectar con Supabase. Prueba abrir el panel desde http://localhost en vez de file://.";
+    return `No pude conectar con Supabase. Verifica el Project URL configurado (${SUPABASE_URL}) y que la publishable key sea del mismo proyecto.`;
   }
   return message;
 }
