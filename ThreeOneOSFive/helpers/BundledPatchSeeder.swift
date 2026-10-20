@@ -629,7 +629,7 @@ enum BundledPatchSeeder {
     private static func isRemotePatchPackage(_ file: RemoteContentFile) -> Bool {
         file.category.lowercased() == "packages"
             || file.fileName.lowercased().hasSuffix(".3105")
-            || file.mimeType?.lowercased() == "application/vnd.greeg.3105"
+            || file.mimeType?.lowercased() == "application/vnd.yojhan.3105"
     }
 
     private static func targetPath(for spec: PayloadSpec) -> String {
