@@ -138,7 +138,9 @@ struct ThreeOneOSFiveApp: App {
                     }
                 }
             }
-            .preferredColorScheme(.light)
+            // GLLYZI's base UI is dark; using light mode here made the inherited
+            // .primary text render black over YOJHAN's dark cards.
+            .preferredColorScheme(.dark)
             .displayIdentityAttribution(isPresented: $showAttribution, enabled: licenseUnlocked && !showOnboarding)
             .sheet(isPresented: $showAttribution) {
                 DisplayAttributionSheet()
