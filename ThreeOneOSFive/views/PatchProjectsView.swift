@@ -35,7 +35,7 @@ struct PatchProjectsView: View {
             VStack(spacing: 0) {
                 AppSearchField(
                     text: $searchText,
-                    prompt: "Buscar archivos YOJHAN CHEATS",
+                    prompt: "Buscar archivos de YOJHAN CHEATS",
                     clearLabel: language.text("common.clear")
                 )
                 ScrollView {
@@ -66,7 +66,7 @@ struct PatchProjectsView: View {
                 }
             }
             .background(AppTheme.pageBackground.ignoresSafeArea())
-            .navigationTitle("Archivos YOJHAN CHEATS")
+            .navigationTitle("Archivos de YOJHAN CHEATS")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if store.isBusy {

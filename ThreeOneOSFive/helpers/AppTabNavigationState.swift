@@ -42,7 +42,7 @@ struct FeatureVisibility: Equatable {
     }
 
     var visibleSections: [AppSection] {
-        [.home, .files]
+        [.home, .files, .social]
     }
 
     func isVisible(_ section: AppSection) -> Bool {

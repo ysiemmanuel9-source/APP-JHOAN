@@ -80,9 +80,7 @@ struct ContentView: View {
                 }
             )
         case .files:
-            AppDataBrowserView(
-                tabSession: filesTabSession
-            )
+            PatchProjectsView()
         case .patches:
             PatchProjectsView()
         case .social:
@@ -100,13 +98,6 @@ struct ContentView: View {
         Binding(
             get: { tabNavigation.selectedTab },
             set: { tabNavigation.select($0) }
-        )
-    }
-
-    private var filesTabSession: Binding<FilesTabSession> {
-        Binding(
-            get: { tabNavigation.filesTabs },
-            set: { tabNavigation.setFilesTabs($0) }
         )
     }
 
